@@ -12,16 +12,27 @@ const NewsBoard = ({ category }) => {
     const fetchNews = async () => {
       setLoading(true);
       setError(null);
+
       try {
         const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
+
+        // const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        // const response = await fetch(proxyUrl + url);
+
         const response = await fetch(url);
-        if (!response.ok) throw new Error("Failed to fetch news");
+
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
         const data = await response.json();
         setArticles(data.articles || []);
       } catch (err) {
+        console.error("Error fetching news:", err);
         setError(err.message);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchNews();
@@ -38,7 +49,12 @@ const NewsBoard = ({ category }) => {
       <div className="row">
         {articles.map((article, index) => (
           <div key={index} className="col-md-4">
-            <NewsItem title={article.title} description={article.description} src={article.urlToImage} url={article.url} />
+            <NewsItem 
+              title={article.title || "No Title"} 
+              description={article.description || "No Description"} 
+              src={article.urlToImage || "https://via.placeholder.com/150"} 
+              url={article.url || "#"} 
+            />
           </div>
         ))}
       </div>
