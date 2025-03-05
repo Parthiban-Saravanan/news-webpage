@@ -20,7 +20,7 @@ const Navbar = ({ setCategory }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            {["technology", "business", "health", "sports", "entertainment"].map((cat) => (
+            {["general", "technology", "business", "health", "sports", "entertainment"].map((cat) => (
               <li className="nav-item" key={cat}>
                 <button className="nav-link btn btn-link text-light" onClick={() => setCategory(cat)}>
                   {cat.charAt(0).toUpperCase() + cat.slice(1)}
