@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NewsItem from "./NewsItem";
 
-const API_KEY = "600ffd8590a94cc3899ad5bbdada5bfb"; // Use your valid API key
+const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 
 const NewsBoard = ({ category }) => {
   const [articles, setArticles] = useState([]);
